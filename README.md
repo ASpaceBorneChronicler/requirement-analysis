@@ -518,6 +518,186 @@ Gathering → Elicitation → Documentation → Analysis → Validation
 -   **Change Management**: Establish procedures for requirement modifications
 -   **Quality Gates**: Validate completeness before moving to next activity
 
+##  Types of Requirements
+
+Understanding the distinction between Functional and Non-functional Requirements is crucial for successful requirement analysis. Let's explore both types using examples from hotel booking applications like Airbnb and OYO, based on their system architecture and real-world implementation needs.
+
+### ** Functional Requirements**
+
+**Definition:** Functional requirements specify **what** the system should do - the specific behaviors, features, and functions that the system must provide to users. These requirements describe the system's functionality in terms of inputs, processing, and outputs.
+
+**Key Characteristics:**
+
+-   Define specific system behaviors and operations
+-   Describe user interactions and system responses
+-   Can be directly tested and validated
+-   Focus on business logic and user workflows
+-   Answer the question: "What should the system do?"
+
+**Hotel Booking System Examples:**
+
+-   **Hotel Management Service Functions:**
+    -   Hotel managers can add, update, and delete property listings
+    -   System allows upload and management of hotel images (up to 20 images per property)
+    -   Property owners can set and modify room availability calendars
+    -   Managers can define pricing rules including seasonal rates and discounts
+    -   System provides dashboard for viewing booking statistics and revenue reports
+    -   Hotel owners can respond to customer reviews and queries
+-   **Customer Search and Booking Functions:**
+    -   Users can search hotels by location, check-in/check-out dates, and guest count
+    -   System displays search results with hotel details, images, and pricing
+    -   Customers can filter results by price range, amenities, and ratings
+    -   Users can view detailed hotel information including reviews and location maps
+    -   System allows customers to select rooms and proceed to booking
+    -   Platform processes secure payments through integrated payment gateways
+-   **Booking Management Functions:**
+    -   System generates unique booking confirmation numbers
+    -   Customers can view their current and past booking history
+    -   Users can modify bookings (subject to hotel policies) and request cancellations
+    -   System automatically sends booking confirmations via email and SMS
+    -   Platform handles booking cancellations and refund processing
+    -   System maintains booking audit trail for dispute resolution
+-   **Notification and Communication Functions:**
+    -   System sends real-time notifications to managers when new bookings arrive
+    -   Platform delivers promotional offers and recommendations to customers
+    -   Automated reminders sent 24 hours before check-in
+    -   System facilitates communication between guests and hotel managers
+    -   Emergency notifications sent for booking changes or cancellations
+
+**Practical Example - Functional Requirement Documentation:**
+
+```
+REQ-F001: Hotel Search Functionality
+Description: Users shall be able to search for hotels using location and date criteria
+Input: Location (city/address), Check-in date, Check-out date, Number of guests
+Process: System queries elastic search database for available properties
+Output: List of available hotels with basic information (name, price, rating, image)
+Acceptance Criteria:
+- Search must return results within 3 seconds
+- Results must show only available properties for specified dates
+- Minimum information displayed: hotel name, price per night, star rating, one image
+```
+
+### ** Non-Functional Requirements**
+
+**Definition:** Non-functional requirements specify **how** the system should perform - the quality attributes, constraints, and performance characteristics that the system must exhibit. These requirements define the system's operational qualities rather than specific behaviors.
+
+**Key Characteristics:**
+
+-   Define system quality attributes and constraints
+-   Specify performance, security, and scalability expectations
+-   Often measurable but not directly functional
+-   Impact overall user experience and system architecture
+-   Answer the question: "How well should the system perform?"
+
+**Hotel Booking System Examples:**
+
+-   **Performance Requirements:**
+    -   System must handle 10,000 concurrent users without performance degradation
+    -   Search results must load within 2 seconds under normal load conditions
+    -   Hotel booking confirmation must be processed within 30 seconds
+    -   Image loading time should not exceed 1 second per image
+    -   Database response time must be under 500ms for 95% of queries
+    -   System must maintain 99.9% uptime (maximum 8.77 hours downtime per year)
+-   **Scalability Requirements:**
+    -   Architecture must support horizontal scaling using microservices approach
+    -   System should handle 300% traffic increase during peak booking seasons
+    -   Database must support sharding to distribute load across multiple servers
+    -   CDN implementation required for global content delivery
+    -   Load balancers must distribute traffic across minimum 3 server instances
+    -   System must auto-scale based on traffic patterns using cloud infrastructure
+-   **Security Requirements:**
+    -   All payment transactions must be PCI DSS compliant
+    -   Customer personal data must be encrypted using AES-256 encryption
+    -   User authentication must implement two-factor authentication for high-value bookings
+    -   System must protect against SQL injection and XSS attacks
+    -   API endpoints must use HTTPS encryption and rate limiting
+    -   User sessions must expire after 30 minutes of inactivity
+-   **Reliability and Availability Requirements:**
+    -   System must implement master-slave database architecture for redundancy
+    -   Automatic failover capability with recovery time under 5 minutes
+    -   Data backup must occur every 4 hours with 30-day retention
+    -   System must gracefully handle third-party service failures (payment gateways)
+    -   Error logging and monitoring with real-time alerting for critical failures
+    -   Disaster recovery plan with 24-hour maximum recovery time
+-   **Usability Requirements:**
+    -   Mobile-responsive design supporting devices with minimum 320px width
+    -   Application must be accessible following WCAG 2.1 Level AA guidelines
+    -   User interface must support minimum 5 languages (English, Spanish, French, German, Mandarin)
+    -   Booking process must be completable in maximum 5 steps
+    -   System must provide clear error messages and recovery suggestions
+    -   Help documentation and customer support integration required
+-   **Data Management Requirements:**
+    -   Customer data must be retained according to GDPR compliance (right to deletion)
+    -   Booking history must be archived using Cassandra for long-term storage
+    -   Real-time data synchronization between microservices using message queues
+    -   Search indexing must update within 15 minutes of hotel data changes
+    -   Analytics data must be streamed to Hadoop for business intelligence processing
+    -   Database transactions must maintain ACID properties
+
+**Practical Example - Non-Functional Requirement Documentation:**
+
+```
+REQ-NF001: System Performance Under Load
+Description: System must maintain acceptable performance during peak usage periods
+Specification:
+- Response Time: 95% of requests processed within 2 seconds
+- Throughput: Support 10,000 concurrent active users
+- Resource Usage: CPU utilization should not exceed 80% under normal load
+- Scalability: Auto-scale to handle 300% traffic increase
+Testing Criteria:
+- Load testing with 10,000 simulated concurrent users
+- Performance monitoring during peak booking periods
+- Stress testing to identify breaking points
+```
+
+### ** Key Differences and Relationships**
+
+**Comparison Table:**
+| Aspect | Functional Requirements | Non-Functional Requirements |
+|--|--|--|
+| **Focus** | What the system does | How well the system performs |
+|  |  |  |
+| **Testability** | Direct feature testing | Performance/quality testing |
+| **User Interaction** | Direct user-facing features | Behind-the-scenes system qualities |
+| **Documentation** | User stories, use cases | Technical specifications, SLAs |
+| **Examples** | "Search hotels", "Process payment" | "Load in 2 seconds", "Handle 10K users" |
+
+
+
+
+
+
+
+**How They Work Together:**
+
+```
+Functional Requirement: "Users can search for hotels"
+Supporting Non-Functional Requirements:
+├── Performance: Search results in <2 seconds
+├── Scalability: Handle 10,000 concurrent searches
+├── Reliability: 99.9% search success rate
+├── Usability: Intuitive search interface
+└── Security: Secure handling of search data
+```
+
+**Real-World Integration Example:** The hotel booking system architecture uses microservices, load balancers, CDN, and distributed databases to meet both functional needs (hotel search, booking management) and non-functional requirements (performance, scalability, reliability).
+
+**Requirements Traceability in Hotel Booking Systems:**
+
+```
+Business Goal: "Provide seamless hotel booking experience"
+├── Functional Requirements:
+│   ├── Hotel search and filtering capabilities
+│   ├── Secure payment processing
+│   └── Booking management and history
+└── Non-Functional Requirements:
+    ├── <2 second response times (Performance)
+    ├── 99.9% system uptime (Reliability)
+    └── Support for 10K concurrent users (Scalability)
+```
+
+
 ##  Getting Started
 
 ### Prerequisites
