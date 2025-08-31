@@ -697,6 +697,234 @@ Business Goal: "Provide seamless hotel booking experience"
     └── Support for 10K concurrent users (Scalability)
 ```
 
+## Use Case Diagrams
+
+Use Case Diagrams are one of the most powerful visual tools in requirement analysis, providing a clear, high-level view of system functionality and user interactions. They serve as a bridge between business requirements and technical implementation, making complex systems understandable to both technical and non-technical stakeholders.
+
+### **What are Use Case Diagrams?**
+
+**Definition:** Use Case Diagrams are visual representations that show the interactions between users (actors) and a system to achieve specific goals (use cases). They illustrate **who** can do **what** with the system, without getting into the technical details of **how** it's implemented.
+
+**Core Components:**
+
+-   **Actors** - External entities (users, systems, or organizations) that interact with the system
+-   **Use Cases** - Specific functionalities or services the system provides to actors
+-   **System Boundary** - Defines what's inside the system vs. external to it
+-   **Relationships** - Connections showing how actors interact with use cases
+
+**Key Characteristics:**
+
+-   Focus on **what** the system does, not **how** it does it
+-   Show system functionality from user's perspective
+-   Identify all possible interactions between actors and system
+-   Help validate that all user needs are addressed
+-   Provide foundation for detailed use case specifications
+
+### **Benefits of Use Case Diagrams in Requirement Analysis**
+
+**Visual Communication Benefits:**
+
+-   **Stakeholder Alignment** - Creates shared understanding across diverse teams
+-   **Requirements Validation** - Easy to verify all user needs are captured
+-   **Gap Identification** - Quickly spot missing functionality or actors
+-   **Scope Visualization** - Clear boundary of what's included vs. excluded
+
+**Project Management Benefits:**
+
+-   **Feature Planning** - Use cases become development tasks and user stories
+-   **Effort Estimation** - Each use case can be sized and estimated
+-   **Testing Foundation** - Use cases directly translate to test scenarios
+-   **Documentation Standard** - Consistent way to document system functionality
+
+**Development Benefits:**
+
+-   **Architecture Planning** - Helps identify system components and interfaces
+-   **Priority Setting** - Critical use cases drive development priorities
+-   **Change Management** - Easy to see impact of requirement changes
+-   **Team Communication** - Developers understand user expectations clearly
+
+### **Booking System Use Case Diagram**
+
+Based on our hotel booking system case study (similar to Airbnb/OYO), here's a comprehensive use case diagram showing all major interactions:
+
+Find image at alx-booking-uc.png in this repository.
+
+**Diagram Analysis:**
+
+### **Actors Identified:**
+
+**Primary Actors (Direct System Users):**
+
+-   **Guest User** - Customers searching and booking properties
+-   **Registered User** - Authenticated customers with accounts
+-   **Property Owner** - Hotel managers/owners managing listings
+-   **System Administrator** - Platform administrators managing the system
+
+**Secondary Actors (Supporting Systems):**
+
+-   **Payment Gateway** - External payment processing system
+-   **Notification Service** - Email/SMS notification system
+-   **Maps Service** - External mapping and location services
+
+### **Use Cases by Actor:**
+
+**Guest User Capabilities:**
+
+-   Browse Properties - Search without registration
+-   View Property Details - See detailed information and reviews
+-   Register Account - Create new user account
+-   Search Properties - Find properties by location/criteria
+
+**Registered User Capabilities:**
+
+-   Login/Logout - Authentication management
+-   Book Property - Complete booking process with payment
+-   View Booking History - Access past and current bookings
+-   Manage Profile - Update personal information and preferences
+-   Leave Reviews - Rate and review stayed properties
+-   Cancel Booking - Cancel reservations within policy
+-   Save Favorites - Bookmark preferred properties
+
+**Property Owner Capabilities:**
+
+-   Manage Property Listings - Add, update, delete property information
+-   Set Pricing Rules - Define rates, discounts, seasonal pricing
+-   Update Availability Calendar - Manage booking availability
+-   View Booking Reports - Access revenue and booking analytics
+-   Respond to Reviews - Reply to customer feedback
+-   Manage Bookings - Handle booking modifications and issues
+
+**System Administrator Capabilities:**
+
+-   Manage Users - User account administration
+-   Monitor System Performance - Track system health and usage
+-   Generate Reports - Create business intelligence reports
+-   Handle Disputes - Resolve conflicts between users and owners
+-   Manage Platform Content - Oversee listings and user content
+
+### **Key Relationships and Extensions:**
+
+**Include Relationships** (Required sub-functionality):
+
+```
+Book Property «includes» Process Payment
+Book Property «includes» Send Confirmation
+Manage Listings «includes» Upload Images
+Search Properties «includes» Apply Filters
+```
+
+**Extend Relationships** (Optional functionality):
+
+```
+Book Property «extends» Apply Discount Code
+Search Properties «extends» Save Search Criteria
+View Booking History «extends» Download Receipt
+Manage Listings «extends» Set Special Offers
+```
+
+**Inheritance Relationships** (Actor specialization):
+
+```
+Registered User «inherits from» Guest User
+(Registered users can do everything guests can do, plus more)
+```
+
+### **Use Case Priorities and Implementation Phases**
+
+**Phase 1 - Core Functionality (Must Have):**
+
+-   Browse Properties
+-   Register Account / Login
+-   Search Properties
+-   Book Property
+-   Process Payment
+-   Manage Property Listings
+
+**Phase 2 - Enhanced Features (Should Have):**
+
+-   View Booking History
+-   Leave Reviews
+-   Cancel Booking
+-   Update Availability Calendar
+-   Send Notifications
+
+**Phase 3 - Advanced Features (Could Have):**
+
+-   Save Favorites
+-   Generate Reports
+-   Apply Discount Codes
+-   Respond to Reviews
+-   Handle Disputes
+
+### **Creating Effective Use Case Diagrams**
+
+**Step-by-Step Process:**
+
+1.  **Identify Actors**
+    -   List all types of users who interact with the system
+    -   Include external systems that interface with your system
+    -   Group similar actors and identify inheritance relationships
+2.  **Define Use Cases**
+    -   Focus on user goals, not system functions
+    -   Use active voice and start with verbs (e.g., "Book Property", not "Property Booking")
+    -   Keep use cases at consistent level of detail
+3.  **Establish System Boundary**
+    -   Clearly define what's part of your system
+    -   External actors and systems stay outside the boundary
+    -   Use cases represent system functionality inside the boundary
+4.  **Add Relationships**
+    -   Connect actors to use cases they can perform
+    -   Add include/extend relationships for complex use cases
+    -   Show actor inheritance where applicable
+5.  **Validate and Refine**
+    -   Review with stakeholders to ensure completeness
+    -   Check that all user needs are represented
+    -   Verify use cases align with business objectives
+
+### ** Tools and Best Practices**
+
+**Recommended Tools:**
+
+-   **Draw.io (diagrams.net)** - Free, web-based, excellent for use case diagrams
+-   **Lucidchart** - Professional diagramming with collaboration features
+-   **Visio** - Microsoft's diagramming tool with UML templates
+-   **PlantUML** - Text-based diagramming for version control integration
+
+**Best Practices:**
+
+-   Keep diagrams simple and uncluttered
+-   Use consistent naming conventions
+-   Focus on user perspective, not implementation details
+-   Validate diagrams with actual users and stakeholders
+-   Update diagrams as requirements evolve
+-   Use diagrams as starting point for detailed specifications
+
+### ** From Use Case Diagrams to Implementation**
+
+**How Use Cases Drive Development:**
+
+```
+Use Case: "Book Property"
+├── User Stories:
+│   ├── "As a registered user, I want to select dates..."
+│   ├── "As a customer, I want to choose payment method..."
+│   └── "As a user, I want to receive booking confirmation..."
+├── Test Cases:
+│   ├── Happy path booking flow
+│   ├── Invalid payment method handling
+│   └── Booking conflict scenarios
+└── System Components:
+    ├── Booking Service
+    ├── Payment Integration
+    └── Notification System
+```
+
+**Integration with Other Requirements:**
+
+-   Use cases become functional requirements
+-   Actor interactions define user interface requirements
+-   System boundaries help define architecture
+-   Relationships identify technical dependencies
 
 ##  Getting Started
 
